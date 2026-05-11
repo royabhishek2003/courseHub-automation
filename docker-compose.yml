@@ -1,0 +1,27 @@
+version: "3.8"
+
+services:
+  backend:
+    build:
+      context: ./Server
+      dockerfile: Dockerfile
+    container_name: coursehub-backend
+    ports:
+      - "4000:4000"
+    env_file:
+      - ./Server/.env
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        - VITE_BASE_URL=http://localhost:4000/api/v1
+        - VITE_RAZORPAY_KEY=rzp_test_S8bsxIXi8nAl6w
+    container_name: coursehub-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    restart: unless-stopped

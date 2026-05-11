@@ -37,6 +37,7 @@ app.use(cookieParser());
 app.use(cors({
   origin: [
     "http://localhost:5173",
+    "http://localhost",
     "https://course-hub-frontend-six.vercel.app"
   ],
   credentials: true
