@@ -25,7 +25,7 @@ pipeline {
             steps {
                 sh """
                     docker build \
-                        --build-arg VITE_BASE_URL=http://13.201.66.83/api/v1 \
+                        --build-arg VITE_BASE_URL=http://13.206.150.216/api/v1 \
                         --build-arg VITE_RAZORPAY_KEY=rzp_test_S8bsxIXi8nAl6w \
                         -t ${FRONTEND_IMAGE}:latest \
                         ./frontend
@@ -58,7 +58,7 @@ pipeline {
             sh 'docker image prune -f || true'
         }
         success {
-            echo 'Pipeline completed successfully! App is live at http://13.201.66.83'
+            echo 'Pipeline completed successfully! App is live at http://13.206.150.216'
         }
         failure {
             echo 'Pipeline failed! Check the logs above.'

@@ -38,7 +38,7 @@ app.use(cors({
   origin: [
     "http://localhost:5173",
     "http://localhost",
-    "http://13.201.66.83",
+    "http://13.206.150.216",
     "https://course-hub-frontend-six.vercel.app"
   ],
   credentials: true
