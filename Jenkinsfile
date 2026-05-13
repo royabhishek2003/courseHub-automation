@@ -25,7 +25,7 @@ pipeline {
             steps {
                 sh """
                     docker build \
-                        --build-arg VITE_BASE_URL=http://13.201.66.83:4000/api/v1 \
+                        --build-arg VITE_BASE_URL=http://13.201.66.83/api/v1 \
                         --build-arg VITE_RAZORPAY_KEY=rzp_test_S8bsxIXi8nAl6w \
                         -t ${FRONTEND_IMAGE}:latest \
                         ./frontend
