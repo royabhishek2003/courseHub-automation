@@ -1,5 +1,4 @@
 # docker-compose.prod.yml - Use this on EC2 (pull-only, no build needed)
-version: "3.8"
 
 services:
   backend:
@@ -10,6 +9,11 @@ services:
     env_file:
       - ./.env
     restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
 
   frontend:
     image: royabhishek2645/coursehub-frontend:latest
@@ -19,3 +23,8 @@ services:
     depends_on:
       - backend
     restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
