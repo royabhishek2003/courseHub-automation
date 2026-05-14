@@ -13,7 +13,6 @@ export default function ChipInput({
   register,
   errors,
   setValue,
-  getValues,
 }) {
   const { editCourse, course } = useSelector((state) => state.course)
 

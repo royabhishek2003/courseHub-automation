@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useMemo, useState } from "react"
 import { BiInfoCircle } from "react-icons/bi"
 import { HiOutlineGlobeAlt } from "react-icons/hi"
 import { ReactMarkdown } from "react-markdown/lib/react-markdown"
@@ -38,7 +38,7 @@ function CourseDetails() {
         const res = await fetchCourseDetails(courseId)
         // console.log("course details res: ", res)
         setResponse(res)
-      } catch (error) {
+      } catch {
         console.log("Could not fetch Course Details")
       }
     })()
@@ -47,10 +47,8 @@ function CourseDetails() {
   // console.log("response: ", response)
 
   // Calculating Avg Review count
-  const [avgReviewCount, setAvgReviewCount] = useState(0)
-  useEffect(() => {
-    const count = GetAvgRating(response?.data?.courseDetails.ratingAndReviews)
-    setAvgReviewCount(count)
+  const avgReviewCount = useMemo(() => {
+    return GetAvgRating(response?.data?.courseDetails?.ratingAndReviews)
   }, [response])
   // console.log("avgReviewCount: ", avgReviewCount)
 
@@ -67,13 +65,12 @@ function CourseDetails() {
   }
 
   // Total number of lectures
-  const [totalNoOfLectures, setTotalNoOfLectures] = useState(0)
-  useEffect(() => {
+  const totalNoOfLectures = useMemo(() => {
     let lectures = 0
     response?.data?.courseDetails?.courseContent?.forEach((sec) => {
       lectures += sec.subSection.length || 0
     })
-    setTotalNoOfLectures(lectures)
+    return lectures
   }, [response])
 
   if (loading || !response) {
@@ -88,7 +85,7 @@ function CourseDetails() {
   }
 
   const {
-    _id: course_id,
+    _id: _course_id,
     courseName,
     courseDescription,
     thumbnail,
@@ -99,7 +96,7 @@ function CourseDetails() {
     instructor,
     studentsEnroled,
     createdAt,
-  } = response.data?.courseDetails
+  } = response.data?.courseDetails || {}
 
   const handleBuyCourse = () => {
     if (token) {
