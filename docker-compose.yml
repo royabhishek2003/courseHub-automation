@@ -18,7 +18,7 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
       args:
-        - VITE_BASE_URL=http://13.201.66.83/api/v1
+        - VITE_BASE_URL=http://13.206.150.216/api/v1
         - VITE_RAZORPAY_KEY=rzp_test_S8bsxIXi8nAl6w
     image: royabhishek2645/coursehub-frontend:latest
     container_name: coursehub-frontend

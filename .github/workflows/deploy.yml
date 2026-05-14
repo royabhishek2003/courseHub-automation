@@ -8,7 +8,7 @@ env:
   DOCKERHUB_USER: royabhishek2645
   BACKEND_IMAGE: royabhishek2645/coursehub-backend
   FRONTEND_IMAGE: royabhishek2645/coursehub-frontend
-  EC2_HOST: 13.201.66.83
+  EC2_HOST: 13.206.150.216
 
 jobs:
   lint:
