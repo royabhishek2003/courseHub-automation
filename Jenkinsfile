@@ -10,7 +10,7 @@ pipeline {
         DOCKERHUB_USER        = 'royabhishek2645'
         BACKEND_IMAGE         = "${DOCKERHUB_USER}/coursehub-backend"
         FRONTEND_IMAGE        = "${DOCKERHUB_USER}/coursehub-frontend"
-        EC2_APP_HOST          = '13.233.141.208'
+        EC2_APP_HOST          = '13.201.66.83'
     }
 
     stages {
@@ -106,6 +106,15 @@ pipeline {
             steps {
                 echo "🚀 Deploying to EC2 (${EC2_APP_HOST})..."
                 sshagent(['ec2-ssh-key']) {
+                    // Sync latest code (monitoring configs etc.) to App EC2
+                    sh """
+                        ssh -o StrictHostKeyChecking=no ubuntu@${EC2_APP_HOST} '
+                            cd ~/coursehub &&
+                            git pull origin main &&
+                            echo "✅ Code synced!"
+                        '
+                    """
+                    // Deploy application
                     sh """
                         ssh -o StrictHostKeyChecking=no ubuntu@${EC2_APP_HOST} '
                             cd ~/coursehub &&
